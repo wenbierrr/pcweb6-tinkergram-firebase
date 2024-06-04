@@ -19,30 +19,30 @@ export default function LoginPage() {
     try {
       console.log("before await");
       const result = await signInWithRedirect(auth, provider);
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential.accessToken;
-      // The signed-in user info.
-      const user = result.user;
-      console.log(token);
-      setError(token);
-      console.log(user);
+      const credential = await GoogleAuthProvider.credentialFromResult(result);
+      // const token = credential.accessToken;
+      // // The signed-in user info.
+      // const user = result.user;
+      // console.log(token);
+      // setError(token);
+      // console.log(user);
       navigate("/add");
     } catch (error) {
       
       console.log('Login Failed', error);
-      const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.customData.email;
-    // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
-    console.log(errorCode);
-    console.log(errorMessage);
-      setError('Google login failed. Please try again.');
+    //   const errorCode = error.code;
+      const errorMessage = error.message;
+    // // The email of the user's account used.
+    // const email = error.customData.email;
+    // // The AuthCredential type that was used.
+    // const credential = GoogleAuthProvider.credentialFromError(error);
+    // console.log(errorCode);
+    // console.log(errorMessage);
+      setError('Google login failed. Please try again.', errorMessage);
     }
   };
 
-  useEffect(() => {
+  useEffect(() => { //keep tracks of auth status
     if (loading) return;
     if (user) navigate ("/");
   }, [navigate, user, loading]);
