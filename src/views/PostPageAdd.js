@@ -13,6 +13,7 @@ export default function PostPageAdd() {
   const [user, loading] = useAuthState(auth);
   const [caption, setCaption] = useState("");
   const [image, setImage] = useState("");
+  const [imageName, setImageName] = useState("");
   const[previewImage, setPreviewImage] = useState("https://zca.sg/img/placeholder");
   const navigate = useNavigate();
 
@@ -20,7 +21,7 @@ export default function PostPageAdd() {
     const imageReference = ref(storage, `images/${image.name}`); // take the image and upload it inside "images/...."
     const response = await uploadBytes(imageReference, image);
     const imageUrl = await getDownloadURL(response.ref);
-    await addDoc(collection(db, "posts"), { caption, image: imageUrl }); // saving things into database 
+    await addDoc(collection(db, "posts"), { caption, image: imageUrl, imageName: imageName }); // saving things into database 
     navigate("/");
   }
 
@@ -67,9 +68,9 @@ export default function PostPageAdd() {
               type="file"
               onChange={(e) => {
                 const imageFile = e.target.files[0];
-                setImage(imageFile);
+                setImageName(imageFile.name);
                 const previewImage = URL.createObjectURL(imageFile);
-                setImage(previewImage);
+                setImage(imageFile);
                 setPreviewImage(previewImage);
               }}
             />
