@@ -1,16 +1,18 @@
 import { GoogleLogin } from '@react-oauth/google';
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signInWithRedirect } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase"; // Ensure this path is correct
 import './LoginPage.css'; // Import custom CSS file
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [user, loading] = useAuthState(auth);
 
   const handleGoogleLoginSuccess = async (credentialResponse) => {
     const provider = new GoogleAuthProvider();
@@ -39,6 +41,11 @@ export default function LoginPage() {
       setError('Google login failed. Please try again.');
     }
   };
+
+  useEffect(() => {
+    if (loading) return;
+    if (user) navigate ("/");
+  }, [navigate, user, loading]);
 
   return (
     <Container className="login-container">
