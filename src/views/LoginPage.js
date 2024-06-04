@@ -16,10 +16,24 @@ export default function LoginPage() {
     const provider = new GoogleAuthProvider();
     try {
       const result = await signInWithRedirect(auth, provider);
-      console.log(result);
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      // The signed-in user info.
+      const user = result.user;
+      console.log(token);
+      console.log(user);
       navigate("/");
     } catch (error) {
+      
       console.log('Login Failed', error);
+      const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.customData.email;
+    // The AuthCredential type that was used.
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    console.log(errorCode);
+    console.log(errorMessage);
       setError('Google login failed. Please try again.');
     }
   };
