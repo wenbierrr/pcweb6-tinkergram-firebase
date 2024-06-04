@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { auth, db } from "../firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { signOut } from "firebase/auth";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 export default function PostPageUpdate() {
   const params = useParams();

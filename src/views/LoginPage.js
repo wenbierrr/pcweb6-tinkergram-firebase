@@ -1,9 +1,9 @@
+import { GoogleLogin } from '@react-oauth/google';
 import React, { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../firebase";
-import { GoogleLogin } from '@react-oauth/google';
+import { auth } from "../firebase"; // Ensure this path is correct
 import './LoginPage.css'; // Import custom CSS file
 
 export default function LoginPage() {
@@ -12,15 +12,16 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleGoogleLoginSuccess = (credentialResponse) => {
-    console.log(credentialResponse);
-    // Handle Google login success
-    navigate("/");
-  };
-
-  const handleGoogleLoginFailure = () => {
-    console.log('Login Failed');
-    setError('Google login failed. Please try again.');
+  const handleGoogleLoginSuccess = async (credentialResponse) => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      console.log(result);
+      navigate("/");
+    } catch (error) {
+      console.log('Login Failed', error);
+      setError('Google login failed. Please try again.');
+    }
   };
 
   return (
@@ -55,6 +56,7 @@ export default function LoginPage() {
           <Button
             variant="primary"
             onClick={async (e) => {
+              e.preventDefault();
               setError(""); // set error text to empty
               const canLogin = username && password;
               if (canLogin) {
@@ -74,7 +76,7 @@ export default function LoginPage() {
         <div className="google-login-button">
           <GoogleLogin
             onSuccess={handleGoogleLoginSuccess}
-            onError={handleGoogleLoginFailure}
+            onError={() => handleGoogleLoginSuccess()}
           />
         </div>
 
