@@ -22,6 +22,7 @@ export default function LoginPage() {
       // The signed-in user info.
       const user = result.user;
       console.log(token);
+      setError(token);
       console.log(user);
       navigate("/add");
     } catch (error) {
@@ -87,6 +88,8 @@ export default function LoginPage() {
             Login
           </Button>
         </div>
+
+        <p>Hello {error}</p>
 
         <div className="google-login-button">
           <GoogleLogin
