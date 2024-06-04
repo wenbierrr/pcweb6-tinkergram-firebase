@@ -15,14 +15,15 @@ export default function LoginPage() {
   const handleGoogleLoginSuccess = async (credentialResponse) => {
     const provider = new GoogleAuthProvider();
     try {
+      console.log("before await");
       const result = await signInWithRedirect(auth, provider);
-      navigate("/add");
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
       // The signed-in user info.
       const user = result.user;
       console.log(token);
       console.log(user);
+      navigate("/add");
     } catch (error) {
       
       console.log('Login Failed', error);
