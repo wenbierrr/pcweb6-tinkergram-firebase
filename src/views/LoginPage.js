@@ -15,7 +15,7 @@ export default function LoginPage() {
   const handleGoogleLoginSuccess = async (credentialResponse) => {
     const provider = new GoogleAuthProvider();
     try {
-      const result = await signInWithPopup(auth, provider);
+      const result = await signInWithRedirect(auth, provider);
       console.log(result);
       navigate("/");
     } catch (error) {
