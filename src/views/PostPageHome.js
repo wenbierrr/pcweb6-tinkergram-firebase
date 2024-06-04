@@ -11,6 +11,7 @@ export default function PostPageHome() {
   async function getAllPosts() {
     const query = await getDocs(collection(db, "posts"));
     const posts = query.docs.map((doc) => {
+      //console.log(doc.data());
       return { id: doc.id, ...doc.data() };
     });
     setPosts(posts);
