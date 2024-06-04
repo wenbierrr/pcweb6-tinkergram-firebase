@@ -1,0 +1,38 @@
+
+
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .signup-link {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .signup-link:hover {
+    text-decoration: underline;
+  }
+  
+  .google-login-button {
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  .google-login-button > div {
+    width: 100%;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
