@@ -96,8 +96,6 @@ export default function LoginPage() {
           </Button>
         </div>
 
-        <p>Hello {error}</p>
-
         <div className="google-login-button">
           <GoogleLogin
             onSuccess={handleGoogleLoginSuccess}
