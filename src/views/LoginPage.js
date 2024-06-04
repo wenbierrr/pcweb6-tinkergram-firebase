@@ -1,7 +1,7 @@
 import { GoogleLogin } from '@react-oauth/google';
 import React, { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
-import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signInWithRedirect } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase"; // Ensure this path is correct
 import './LoginPage.css'; // Import custom CSS file
@@ -15,7 +15,7 @@ export default function LoginPage() {
   const handleGoogleLoginSuccess = async (credentialResponse) => {
     const provider = new GoogleAuthProvider();
     try {
-      const result = await signInWithPopup(auth, provider);
+      const result = await signInWithRedirect(auth, provider);
       console.log(result);
       navigate("/");
     } catch (error) {
