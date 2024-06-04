@@ -22,7 +22,7 @@ export default function LoginPage() {
       const user = result.user;
       console.log(token);
       console.log(user);
-      navigate("/");
+      navigate("/add");
     } catch (error) {
       
       console.log('Login Failed', error);
